@@ -35,7 +35,8 @@ var headerHeight=eval(eval(screenHeight*10)/100);
 var imgHeight=parseInt(eval(eval(screenHeight*40)/100));
 
 var showingModal=false;
-
+var baseurl="http://mjapps.shivtraderssangli.com/app/trade-app/api/";
+//var baseurl="../api/";
 
 function genModalSkeleton() {
     $('.bs-example-modal-sm').remove();
@@ -87,11 +88,45 @@ function setModalContent(modalSkeleton, forwhat) {
                 async: true,
                 error: function () {
                 },
-                success: function (resp) {
+                success: function (resp) {                     
                     $(modalSkeleton).find('#modalShellBody').html('').append(resp);
-                    $(modalSkeleton).find('.badgeName').html(forwhat);
+
+                    // $(modalSkeleton).find('.badgeName').html(forwhat);
                 }
             });
             break;
     }
+}
+
+function loginUser()
+{
+    var UserName=$('#tblLogin #username').val();
+    var password=$('#tblLogin #password').val();
+
+    var PostData={
+        "UserName":UserName,
+        "password":password
+    }
+    //baseurl="../api/UserLogin";
+    $.ajax({
+        url: baseurl+"UserLogin",
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(PostData),
+        success: function (res) {
+           
+           alert(res.result);
+           if(res.code==0)
+           {
+               localStorage.setItem('token',res.data.token);
+               localStorage.setItem('UserId',res.data.userData.UserId);
+               localStorage.setItem('user_name',res.data.userData.userRoleName);
+           }
+            
+            
+        },
+        
+    });
+   
 }
