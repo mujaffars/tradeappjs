@@ -1,10 +1,21 @@
 var tokenPresent = false;
 
 $(window).on('load', function () {
-//    showModal('login');
-//    $('#sidebar-left').show("slide", { direction: "left" }, 100);
+	
+	showModal('login');
+	handleLeftMenuClicks();
 })
 
 function hideScreen(){
     
+}
+
+function handleLeftMenuClicks(){
+	
+	$('#sidebar-left .liBuy').click(function(){		
+		showHideSidebar();
+		
+		showCreateDealPage();
+	})
+	
 }

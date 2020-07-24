@@ -101,7 +101,7 @@ img{border:none; max-height: 100%; max-width: 100%;
 
 #sidebar-left {
     float: left;
-    width: 48%;
+    width: 65%;
     border-right: 0.5em solid #0658ad;
     position: absolute;
     top: 0%;
@@ -168,4 +168,37 @@ img{border:none; max-height: 100%; max-width: 100%;
     font-size: 2em;
     color: white;
     font-weight: bold;
+}
+
+#header #icon_menu{
+	font-size: 2.5em;
+    float: left;
+    padding: 0.5em;
+	color: white;
+}
+
+#sidebar-left #icon_menu_close{
+	float: right;
+	font-size: 1.3em;
+	color: white;
+}
+
+#sidebar-left ul li {
+	font-size: 1.5em;
+	color: white;
+	padding: 0.5em 0;
+}
+
+/***** Pages Html *****/
+#main table{
+	width:100%;
+}
+#main table td{
+	padding:0.5em 0;
+}
+#main .clsCreateDeal{
+	font-size:1.5em;
+}
+#main .clsCreateDeal .clsInput{
+	width: 50%;
 }

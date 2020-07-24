@@ -14,22 +14,94 @@
     </head>
     <body onload="onLoad()" class="noselect ">
 
-        <div id="header">Header</div>
+        <div id="header">
+			<i id="icon_menu" class="fa fa-bars fa-3" aria-hidden="true" onclick="showLeftMenu();"></i>
+		</div>
         <div id="sidebar-left">
             <div class="clsMenu">
-                <i id="icon_menu" class="fa fa-bars fa-3" aria-hidden="true" onclick="showLeftMenu();"></i>
+                Menu
+				<i id="icon_menu_close" class="fa fa-times fa-3" aria-hidden="true" onclick="showLeftMenu();"></i>
             </div>
+			
             <ul>
-                <li>aaa</li>
-                <li>bb</li>
-                <li>cc</li>
-                <li>dd</li>
+                <li class="liBuy">Buy</li>
+                <li class="liSell">Sell</li>
+                <li class="liTTs">Today's Transactions</li>
+                <li class="liADeal">Active Deal</li>
             </ul>
+			
         </div>
         <div id="main">Main</div>
         <!--<div id="sidebar-right">Right</div>-->
         <div id="footer">Footer</div>
-
+	
+		<div class="pagesHtml" style="display:none;">
+		
+			<div class="divCreateDeal">
+				<div class="clsCreateDeal">
+					<table style="text-align: center; margin: 0 auto;" class="tblCreateDeal">
+						<tr class="">
+							<td colspan="3">
+								<div class="infoSmall">Create Deal</div>
+							</td>            
+						</tr>
+						<tr>
+							<td colspan="3">
+								<input type="button" class="inp_product_type" value="Buy">
+								<input type="button" class="inp_product_type" value="Sell">
+							</td>            
+						</tr>
+						<tr>
+							<td>		
+								<div class="clsHeading">Product</div>
+							</td>
+							<td>		
+								<input type="button" class="inp_product_type" value="Peti" ptype="peti" />
+							</td>
+							<td>		
+								<input type="button" class="inp_product_type" value="Chousa" ptype="chousa"/>
+							</td>
+						</tr>
+						<tr>
+							<td>		
+								<div class="clsHeading">Payment Type</div>
+							</td>
+							<td>		
+								<input type="button" class="inp_payment_type" value="RTGS" ptype="rtgs" />
+							</td>
+							<td>		
+								<input type="button" class="inp_payment_type" value="Retail" ptype="retail"/>
+							</td>
+						</tr>
+						<tr>
+							<td>		
+								<div class="clsHeading">Quantity (Kg)</div>
+							</td>
+							<td colspan="2">		
+								<input type="text" class="inp_quantity clsInput" value="0"/>
+							</td>
+						</tr>
+						<tr>
+							<td>		
+								<div class="clsHeading">Expected Rate (Rs/Kg)</div>
+							</td>
+							<td colspan="2">		
+								<input type="text" class="inp_expected_rate clsInput" value="0"/>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="3">		
+								<input type="button" class="btn_submit" value="Submit" ptype="rtgs" />
+							</td>
+						</tr>
+						
+					</table>
+				</div>
+			</div>
+			
+		</div>
+		
     </body>
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -42,14 +114,10 @@
     <script type="text/javascript" src="js/monetize.js?v=4"></script>
     <script type="text/javascript" src="js/globals.js?v=5"></script>
     <script type="text/javascript" src="js/init.js?v=5"></script>
+    <script type="text/javascript" src="js/showhide.js?v=5"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/md5.js"></script>
     <script type="text/javascript" src="js/audio.js?v=4"></script>
-    <script type="text/javascript" src="js/jquery.base64.js"></script> 
-    <!--<script type="text/javascript" src="js/wcloud/db.js"></script>-->
-    <script type="text/javascript" src="js/wcloud/init.js"></script>
-    <!--<script type="text/javascript" src="js/wcloud/buildInit.js"></script>-->
-    <!--<script type="text/javascript" src="js/wcloud/config.js"></script>-->
-    <script type="text/javascript" src="js/wcollect/init.js"></script>
+    <script type="text/javascript" src="js/jquery.base64.js"></script>
 </body>
 </html>

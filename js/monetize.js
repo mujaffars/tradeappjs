@@ -37,17 +37,12 @@ $(function () {
 
         push.on('registration', function (data) {
             $('#regidinp').val(data.registrationId);
-//            alert(data.registrationId);
+			// alert(data.registrationId);
             // data.registrationId
         });
 
         push.on('notification', function (data) {
-            // data.message,
-            // data.title,
-            // data.count,
-            // data.sound,
-            // data.image,
-            // data.additionalData
+			
         });
 
         push.on('error', function (e) {
@@ -86,148 +81,6 @@ function initApp() {
     }
 
     registerAdEvents();
-}
-
-function initAd() {
-
-//    Appodeal.show(Appodeal.BANNER_BOTTOM);
-
-    AdMob.setOptions({
-        publisherId: admobid.banner,
-        interstitialAdId: admobid.interstitial,
-        bannerAtTop: false, // set to true, to put banner at top
-        overlap: false, // set to true, to allow banner overlap webview
-        offsetTopBar: false, // set to true to avoid ios7 status bar overlap
-        isTesting: isTesting, // receiving test ad
-        autoShow: false  // auto show interstitial ad when loaded
-    });
-
-    AdMob.createBannerView({
-        isTesting: isTesting,
-        autoShow: true,
-    });
-
-//    AdMob.prepareInterstitial({
-//        interstitialAdId: admobid.interstitial,
-//        autoShow: false,
-//        isTesting: true,
-//    })
-
-    prepareInterstitial();
-
-    prepareReward();
-
-    if (!eventInitialized) {
-        document.addEventListener('deviceready', function () {
-
-            /** Listner banner **/
-            document.addEventListener('admob.banner.events.LOAD_FAIL', function (event) {
-                setTimeout(function () {
-                    document.addEventListener('deviceready', function () {
-                        prepareBanner();
-                    });
-                }, 3000);
-            })
-
-            /** Listener Interstitial **/
-            document.addEventListener('admob.interstitial.events.LOAD_FAIL', function (event) {
-                setTimeout(function () {
-                    document.addEventListener('deviceready', function () {
-                        prepareInterstitial();
-                    });
-                }, 3000);
-            })
-
-            document.addEventListener('admob.interstitial.events.LOAD', function (event) {
-                // alert('Interstitial loaded');
-            })
-
-            document.addEventListener('admob.interstitial.events.CLOSE', function (event) {
-                eventInitialized=true;
-                document.addEventListener('deviceready', function () {
-                    prepareInterstitial();
-                });
-            })
-
-            document.addEventListener('admob.interstitial.events.EXIT_APP', function (event) {
-
-            })
-
-            /** Listener Reward **/
-            document.addEventListener('admob.rewardvideo.events.LOAD_FAIL', function (event) {
-                setTimeout(function () {
-                    document.addEventListener('deviceready', function () {
-                        prepareReward();
-                    });
-                }, 10000);
-            })
-
-            document.addEventListener('admob.rewardvideo.events.LOAD', function (event) {
-//                $('.divShowR').show();
-            })
-
-            document.addEventListener('admob.rewardvideo.events.REWARD', function (event) {
-                if (vidUnlockNext) {
-                    getSetLocalstorage('packunlockedtill', '', 'setnext');
-                    pckPlaying=eval(pckPlaying+1);
-                    startPack('current');
-                    vidUnlockNext=false;
-                } else if (adForWcoHints) {
-                    wcoLocalstorage('wcoHints', 10, 'plus');
-                    adForWcoHints=false;
-                    $('.bs-example-modal-sm').modal('hide');
-                }
-                prepareReward();
-            });
-
-            document.addEventListener('admob.rewardvideo.events.CLOSE', function (event) {
-                prepareReward();
-            })
-
-        })
-    }
-}
-// optional, in case respond to events or handle error
-function registerAdEvents() {
-
-    document.addEventListener('onDismissInterstitialAd', function (event) {
-        AdMob.prepareInterstitial({
-            interstitialAdId: admobid.interstitial,
-            autoShow: false,
-            isTesting: isTesting,
-        })
-    })
-
-}
-
-function prepareBanner() {
-    AdMob.createBannerView({
-        isTesting: isTesting,
-        autoShow: true,
-    });
-}
-
-function prepareInterstitial() {
-    if (typeof AdMob!=='undefined') {
-        AdMob.prepareInterstitial({interstitialAdId: admobid.interstitial, autoShow: false, isTesting: isTesting});
-    }
-}
-
-function showInterstitial() {
-    if (typeof AdMob!=='undefined') {
-        AdMob.showInterstitial();
-    }
-}
-
-function prepareReward() {
-    admob.rewardvideo.config({
-        id: admobid.reward,
-    })
-    admob.rewardvideo.prepare();
-}
-
-function showReward() {
-    admob.rewardvideo.show();
 }
 
 function closeModal() {
