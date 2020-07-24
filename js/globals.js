@@ -1,0 +1,97 @@
+var dbShell;
+// constants
+var board_row_size=4;
+var board_col_size=4;
+// variables
+var debug_mode=false;
+var hint_mode=false;
+var best_score=0;
+var score=0;
+var direction='';
+var multiplier=0;
+var images=[
+    'images/icons/sprite.png',
+    'images/picto/fire.gif',
+    'images/picto/star.gif',
+    'images/anim/explosion.png'
+];
+var timeout;
+var floor_width;
+var linking={};
+var lvlId;
+var nextId;
+var animSpeed=400;
+var activePage='';
+var pastPage='';
+var devideBy=360;
+var pzlid='';
+var pzlDtl={};
+var backStart=new Date().getTime();
+var inMiddleLoading=false;
+
+var screenHeight=parseInt($(window).height());
+var screenWidth=screenHeight*56.25/100;
+var headerHeight=eval(eval(screenHeight*10)/100);
+var imgHeight=parseInt(eval(eval(screenHeight*40)/100));
+
+var showingModal=false;
+
+
+function genModalSkeleton() {
+    $('.bs-example-modal-sm').remove();
+    var modalSkeleton=$("<div />", {
+        "class": "modal bs-example-modal-sm noselect",
+        tabindex: "-1",
+        role: "dialog",
+        'aria-labelledby': "mySmallModalLabel",
+        'data-backdrop': "false"
+    });
+    var modal=$("<div />", {
+        "class": "modal-dialog modal-sm"
+    });
+    var modalContent=$("<div />", {
+        "class": "modal-content"
+    });
+    var modalBody=$("<div />", {
+        "id": "modalShellBody",
+        "class": "modal-body"
+    }).html('Loading...');
+    modalContent.append(modalBody);
+    modal.append(modalContent);
+    modalSkeleton.append(modal);
+
+    return modalSkeleton;
+}
+
+function showModal(whichone) {
+    var modalSkeleton=genModalSkeleton();
+
+    if (whichone==='finished'||whichone==='insuff') {
+        $(modalSkeleton).modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    } else {
+        $(modalSkeleton).modal("show");
+    }
+    setModalContent(modalSkeleton, whichone);
+}
+
+function setModalContent(modalSkeleton, forwhat) {
+    switch (forwhat) {
+        case 'login':
+            $.ajax({
+                url: 'login.html',
+                type: 'GET',
+                dataType: 'html',
+                async: true,
+                error: function () {
+                },
+                success: function (resp) {
+                    $(modalSkeleton).find('#modalShellBody').html('').append(resp);
+                    $(modalSkeleton).find('.badgeName').html(forwhat);
+                }
+            });
+            break;
+    }
+}
