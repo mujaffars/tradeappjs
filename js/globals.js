@@ -88,7 +88,7 @@ function setModalContent(modalSkeleton, forwhat) {
                 async: true,
                 error: function () {
                 },
-                success: function (resp) {                     
+                success: function (resp) {
                     $(modalSkeleton).find('#modalShellBody').html('').append(resp);
 
                     // $(modalSkeleton).find('.badgeName').html(forwhat);
@@ -100,14 +100,18 @@ function setModalContent(modalSkeleton, forwhat) {
 
 function loginUser()
 {
+    $('.clsLoginText').html('Inside login');
     var UserName=$('#tblLogin #username').val();
     var password=$('#tblLogin #password').val();
 
     var PostData={
-        "UserName":UserName,
-        "password":password
+        "UserName": UserName,
+        "password": password
     }
     //baseurl="../api/UserLogin";
+
+    $('.clsLoginText').html('Inside login 2');
+
     $.ajax({
         url: baseurl+"UserLogin",
         type: 'post',
@@ -115,18 +119,38 @@ function loginUser()
         contentType: 'application/json',
         data: JSON.stringify(PostData),
         success: function (res) {
-           
-           alert(res.result);
-           if(res.code==0)
-           {
-               localStorage.setItem('token',res.data.token);
-               localStorage.setItem('UserId',res.data.userData.UserId);
-               localStorage.setItem('user_name',res.data.userData.userRoleName);
-           }
-            
-            
+            $('.clsLoginText').html('Validating');
+
+            if (res.code==0)
+            {
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('UserId', res.data.userData.UserId);
+                localStorage.setItem('user_name', res.data.userData.userRoleName);
+                $('.clsLoginText').html('success');
+                closeModal();
+                alert(res.result);
+            } else {
+                $('.clsLoginText').html('fail');
+            }
         },
-        
+        error: function (res) {
+            $('.clsLoginText').html('Inside error');
+            alert(JSON.stringify(res));
+            $('#main').html(JSON.stringify(res));
+            
+            closeModal();
+            for (var prop in res) {
+                var item=res[prop];
+                console.log(item);
+                //$('#main').append(item);
+            }
+        }
     });
-   
+
+}
+
+
+function closeModal() {
+    $('.bs-example-modal-sm').modal('hide');
+    $('.bs-example-modal-sm2').modal('hide');
 }
